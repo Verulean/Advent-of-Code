@@ -48,7 +48,7 @@ def download_input(day, path):
         return
     kwargs = {
         "headers": {
-            "User-Agent": "github.com/Verulean/Advent-of-Code-2024 discord:@verulean"
+            "User-Agent": "github.com/Verulean/Advent-of-Code discord:@verulean"
         },
         "cookies": {"session": session_id},
     }
