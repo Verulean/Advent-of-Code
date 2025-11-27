@@ -9,7 +9,7 @@ def get_default_day(d: datetime) -> int:
     max_day = 25 if d.year < 2025 else 12
     if d < datetime(d.year, 12, min_day, tzinfo=d.tzinfo):
         return min_day
-    if d > datetime(d.year, 12, max_day):
+    if d > datetime(d.year, 12, max_day, tzinfo=d.tzinfo):
         return max_day
     return d.day
 
