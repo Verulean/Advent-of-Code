@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 # AoC
-input/
+**/input/
 session.cookie

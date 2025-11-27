@@ -4,24 +4,29 @@ from pytz import timezone
 import aoc_util
 
 
-DT_NOW = datetime.now(timezone("America/New_York"))
-CURRENT_YEAR = DT_NOW.year
-CURRENT_DAY = DT_NOW.day
-
+def get_default_day(d: datetime) -> int:
+    min_day = 1
+    max_day = 25 if d.year < 2025 else 12
+    if d < datetime(d.year, 12, min_day, tzinfo=d.tzinfo):
+        return min_day
+    if d > datetime(d.year, 12, max_day):
+        return max_day
+    return d.day
 
 def main(
-    n=min(CURRENT_DAY, 25),
-    time=False,
-    n_trials=1000,
-    print_solution=True,
-    file_suffix="",
-):
-    aoc = aoc_util.aoc_import(n, file_suffix)
+    year: int,
+    day: int,
+    time: bool = False,
+    n_trials: int = 1000,
+    print_solution: bool = True,
+    file_suffix: str = "",
+) -> None:
+    aoc = aoc_util.aoc_import(year, day, file_suffix)
     fmt = getattr(aoc, "fmt_dict", {})
-    data = aoc_util.aoc_input(n, **fmt)
+    data = aoc_util.aoc_input(year, day, **fmt)
 
     if fmt.get("test", False):
-        test_data = aoc_util.aoc_input(n, **(fmt | {"file_prefix": "t"}))
+        test_data = aoc_util.aoc_input(year, day, **(fmt | {"file_prefix": "t"}))
         test_solution = aoc.solve(test_data)
         if print_solution:
             print("Example Solution:")
@@ -38,7 +43,7 @@ def main(
         else:
             result = f"average of {t} over {n_trials} runs."
 
-        print(f"Day {str(n).rjust(2)}: {result}")
+        print(f"Day {str(day).rjust(2)}: {result}")
 
     solution = aoc.solve(data)
     if print_solution:
@@ -54,4 +59,6 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    now = datetime.now(timezone("America/New_York"))
+    day = get_default_day(now)
+    main(now.year, day)
