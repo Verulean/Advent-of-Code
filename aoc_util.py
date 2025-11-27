@@ -30,7 +30,8 @@ def aoc_input(
     if not file_path.exists():
         if download:
             file_path.parent.mkdir(parents=True, exist_ok=True)
-            download_input(year, day, file_path)
+            if not download_input(year, day, file_path):
+                return []
         else:
             return []
 
@@ -42,12 +43,11 @@ def aoc_input(
             for i in f.read().rstrip("\n").split(sep)
         ]
 
-
-def download_input(year: int, day: int, path: Path) -> None:
+def download_input(year: int, day: int, path: Path) -> bool:
     url = f"https://adventofcode.com/{year}/day/{day}/input"
     session_id = get_session_id()
     if session_id is None:
-        return
+        return False
     kwargs = {
         "headers": {
             "User-Agent": "github.com/Verulean/Advent-of-Code discord:@verulean"
@@ -56,16 +56,17 @@ def download_input(year: int, day: int, path: Path) -> None:
     }
     response = requests.get(url, **kwargs)
     if not response.ok:
-        raise RuntimeError(f"Request failed. {response.content}")
+        return False
     with open(path, "w+") as f:
         f.write(response.text.rstrip("\n"))
-
+        return True
 
 def get_session_id() -> str | None:
-    with open("session.cookie") as f:
-        return f.read().strip()
-    return None
-
+    try:
+        with open("session.cookie") as f:
+            return f.read().strip()
+    except OSError:
+        return None
 
 def time_to_string(n: int, solve, data, pad: int = 11) -> str:
     units = ((1e0, "s"), (1e-3, "ms"), (1e-6, "μs"), (1e-9, "ns"))
