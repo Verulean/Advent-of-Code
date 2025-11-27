@@ -1,18 +1,16 @@
 from importlib.util import module_from_spec, spec_from_file_location
 from timeit import timeit
-import os
+from pathlib import Path
 import requests
 
 
-CURRENT_WORKING_DIRECTORY = os.path.dirname(__file__)
+CURRENT_WORKING_DIRECTORY = Path(__file__).parent
 
 
 def aoc_import(year: int, day: int, file_suffix: str = ""):
     spec = spec_from_file_location(
         f"aoc{day:02}",
-        os.path.join(
-            CURRENT_WORKING_DIRECTORY, "years", str(year), "days", f"aoc{day:02}{file_suffix}.py"
-        ),
+        CURRENT_WORKING_DIRECTORY.joinpath("years", str(year), "days", f"aoc{day:02}{file_suffix}.py")
     )
     aoc = module_from_spec(spec)
     spec.loader.exec_module(aoc)
@@ -28,11 +26,10 @@ def aoc_input(
     download: bool = True,
     **kwargs
 ):
-    file_path = os.path.join(
-        CURRENT_WORKING_DIRECTORY, "years", str(year), "input", f"{file_prefix}{day:02n}.txt"
-    )
-    if not os.path.exists(file_path):
+    file_path = CURRENT_WORKING_DIRECTORY.joinpath("years", str(year), "input", f"{file_prefix}{day:02n}.txt")
+    if not file_path.exists():
         if download:
+            file_path.parent.mkdir(parents=True, exist_ok=True)
             download_input(year, day, file_path)
         else:
             return []
@@ -46,7 +43,7 @@ def aoc_input(
         ]
 
 
-def download_input(year: int, day: int, path: str) -> None:
+def download_input(year: int, day: int, path: Path) -> None:
     url = f"https://adventofcode.com/{year}/day/{day}/input"
     session_id = get_session_id()
     if session_id is None:
