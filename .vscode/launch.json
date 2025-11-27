@@ -1,0 +1,11 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Advent of Code",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py"
+        }
+    ]
+}
