@@ -1,6 +1,6 @@
 import numpy as np
 
-fmt_dict = {"cast": int}
+fmt_dict = { "cast_type": int }
 
 
 def solve(data):
