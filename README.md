@@ -1,10 +1,10 @@
 # Advent-of-Code
-Python framework for solving Advent of Code problems.
+My Python solutions for Advent of Code.
 ## Quick Start Guide
-1. Clone this repository and write your solutions for each day in `./days`, with the file name `aoc##.py`. For example `aoc01.py` for day 1, `aoc02.py` for day 2, etc.
-2. `./days/template.py` is a solution file template set up with common imports. `fmt_dict` controls how the input is parsed into `data`.
+1. Clone this repository and write your solutions for each day in `./year/**/days`, with the file name `aoc##.py`. For example `aoc01.py` for day 1, `aoc02.py` for day 2, etc.
+2. `./years/template.py` is a solution file template set up with common imports. `fmt_dict` controls how the input is parsed into `data`.
 3. Run `main.py` to run today's solution. The answer from `solve(data)` will automatically be copied to your clipboard for submission. If `solve(data)` returns a tuple, e.g. the answers for both parts, only the last element of the tuple will be copied.
-4. To run solutions from a previous year, edit `CURRENT_YEAR` to that year. To run a solution for a different day, call `main()` with the day number.
+4. To run solutions from a previous year, pass the year and day to `main()`.
 5. To benchmark the execution time of a solution, run `main()` with `time=True` and `n_trials` set to the number of trials to run. `main.py` will print the solution and runtime to the console.
 ## `fmt_dict`
 The `fmt_dict` variable is an optional dictionary you can include in a solution file to change how `main.py` parses the input text.
