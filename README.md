@@ -1,4 +1,4 @@
-# Advent-of-Code
+# Advent-of-Code-Python
 My Python solutions for Advent of Code.
 ## Quick Start Guide
 1. Clone this repository and write your solutions for each day in `./year/**/days`, with the file name `aoc##.py`. For example `aoc01.py` for day 1, `aoc02.py` for day 2, etc.
