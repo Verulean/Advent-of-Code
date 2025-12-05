@@ -35,9 +35,12 @@ class Range:
             if a <= x <= b:
                 overlap = True
                 self.__intervals[i][1] = max(y, b)
-            if a <= y <= b:
+            elif a <= y <= b:
                 overlap = True
                 self.__intervals[i][0] = min(x, a)
+            elif x <= a and y >= b:
+                overlap = True
+                self.__intervals[i] = (x, y)
         if overlap:
             self.__combine_intervals()
         else:
@@ -106,7 +109,7 @@ class Range:
         return (map(tuple, self.__intervals))
 
     def __eq__(self, other):
-        return len(self) == len(other) and all(a1 == a2 and b1 == b2 for (a1, b1), (a2, b2) in zip(self, other))
+        return len(self) == len(other) and all(x == y for x, y in zip(self, other))
 
     def __contains__(self, other):
         if isinstance(other, int):
