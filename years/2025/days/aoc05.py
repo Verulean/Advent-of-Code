@@ -3,7 +3,7 @@ from util import Range
 
 fmt_dict = { "sep": "\n\n" }
 
-def solve(data):
+def solve(data: list[str]) -> tuple[int, int]:
     fresh = Range()
     for line in data[0].split():
         a, b = map(int, line.split("-"))
